@@ -621,8 +621,9 @@
         border-radius: 0.5rem;
         transition: all 0.3s ease;
         border: 1px solid var(--border-color);
-        text-decoration: none;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
       }
 
       .info-item:hover {
@@ -756,6 +757,128 @@
         .content-text {
           margin-bottom: 2rem;
         }
+      }
+
+      /* Testimonials Section */
+      .testimonials-container {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .testimonial-card {
+        background: var(--card-bg);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 1rem;
+        position: relative;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .testimonial-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(
+          to right,
+          #ff0000,  /* Red */
+          #ff7f00,  /* Orange */
+          #ffff00,  /* Yellow */
+          #00ff00,  /* Green */
+          #0000ff,  /* Blue */
+          #4b0082,  /* Indigo */
+          #9400d3   /* Violet */
+        );
+        background-size: 400% 400%;
+        animation: rainbow 15s ease infinite;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .testimonial-content {
+        position: relative;
+        padding: 1rem 0;
+      }
+
+      .testimonial-content i {
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .testimonial-content p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .testimonial-author img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        color: var(--primary-color);
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .author-info p {
+        color: var(--text-color);
+        opacity: 0.8;
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      @keyframes rainbow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        outline: 2px solid var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .contact-form input:hover,
+      .contact-form textarea:hover {
+        border-color: var(--primary-color);
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
       }
     </style>
   </head>
@@ -1156,6 +1279,22 @@
         <p>Let's discuss how we can work together</p>
       </div>
 
+      <form id="contact-form" class="contact-form" action="https://formspree.io/f/xgvykvqp" method="POST" style="max-width: 500px; margin: 0 auto 2rem auto; background: var(--card-bg); padding: 2rem; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid var(--border-color); position: relative; z-index: 1;">
+        <div style="margin-bottom: 1rem; position: relative;">
+          <label for="name" style="display:block; font-weight:500; margin-bottom:0.5rem; color: var(--text-color);">Name</label>
+          <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; border-radius:0.3rem; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); transition: all 0.3s ease; pointer-events: auto; cursor: text;">
+        </div>
+        <div style="margin-bottom: 1rem; position: relative;">
+          <label for="email" style="display:block; font-weight:500; margin-bottom:0.5rem; color: var(--text-color);">Email</label>
+          <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; border-radius:0.3rem; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); transition: all 0.3s ease; pointer-events: auto; cursor: text;">
+        </div>
+        <div style="margin-bottom: 1rem; position: relative;">
+          <label for="message" style="display:block; font-weight:500; margin-bottom:0.5rem; color: var(--text-color);">Message</label>
+          <textarea id="message" name="message" rows="5" required style="width:100%; padding:0.75rem; border-radius:0.3rem; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-color); transition: all 0.3s ease; pointer-events: auto; cursor: text; resize: vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:0.75rem; font-size:1rem; cursor: pointer; pointer-events: auto; border: none; outline: none;">Send Message</button>
+      </form>
+
       <div class="contact-info">
         <a href="mailto:akomoledebusayotimi@gmail.com" class="info-item" target="_blank">
           <div class="info-icon">
@@ -1246,35 +1385,6 @@
       });
     </script>
     <script>
-      document.getElementById('contact-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        
-        // Send email using Formspree
-        fetch('https://formspree.io/f/akomoledebusayotimi@gmail.com', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        .then(response => {
-          if (response.ok) {
-            alert('Message sent successfully!');
-            this.reset();
-          } else {
-            throw new Error('Something went wrong');
-          }
-        })
-        .catch(error => {
-          alert('Error sending message. Please try again.');
-          console.error('Error:', error);
-        });
-      });
-    </script>
-    <script>
       document.addEventListener('DOMContentLoaded', function() {
         const themeSwitch = document.getElementById('switch');
         
@@ -1294,6 +1404,38 @@
             document.documentElement.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', 'light');
           }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contact-form');
+        
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const formData = new FormData(this);
+          const data = Object.fromEntries(formData);
+          
+          fetch('https://formspree.io/f/xgvykvqp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => {
+            if (response.ok) {
+              alert('Message sent successfully!');
+              form.reset();
+            } else {
+              throw new Error('Something went wrong');
+            }
+          })
+          .catch(error => {
+            alert('Error sending message. Please try again.');
+            console.error('Error:', error);
+          });
         });
       });
     </script>
